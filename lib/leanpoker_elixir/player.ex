@@ -1,7 +1,7 @@
 defmodule LeanpokerElixir.Player do
   @version "0.0.1"
   def bet_request(game_state) do
-    0
+    game_state["current_buy_in"]
   end
 
   def showdown(game_state) do
