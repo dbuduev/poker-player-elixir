@@ -1,5 +1,5 @@
 defmodule LeanpokerElixir.Player do
-  @version "0.0.1"
+  @version "0.0.2"
   def bet_request(game_state) do
     game_state["current_buy_in"]
   end
