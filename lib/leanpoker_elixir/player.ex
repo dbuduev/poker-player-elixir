@@ -1,5 +1,5 @@
 defmodule LeanpokerElixir.Player do
-  @version "0.0.11"
+  @version "0.0.12"
   def bet_request(game_state) do
     %{
       "in_action" => in_action,
@@ -29,9 +29,10 @@ defmodule LeanpokerElixir.Player do
   defp has_rank?(cards, rank) do
     Enum.any?(cards, fn x -> x["rank"] == rank end)
   end
-  defp has_pair?(cards) do
-    %{"rank" => rank} = hd cards
-    has_pair? = Enum.all?(cards, fn(x) -> x["rank"] == rank end)
+  def has_pair?(cards) do
+      Enum.group_by(cards, fn (x) -> x["rank"] end)
+      |> Map.to_list
+      |> Enum.any?(fn ({_, x}) -> (length x) > 1 end)
   end
   def showdown(game_state) do
     "ok"
