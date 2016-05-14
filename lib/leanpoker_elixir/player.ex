@@ -1,5 +1,5 @@
 defmodule LeanpokerElixir.Player do
-  @version "0.0.9"
+  @version "0.0.10"
   def bet_request(game_state) do
     %{
       "in_action" => in_action,
@@ -12,6 +12,7 @@ defmodule LeanpokerElixir.Player do
     player = Enum.at(players, in_action)
     my_cards = player["hole_cards"]
     cond do
+      length(community_cards) == 0 and has_pair?(my_cards) and current_buy_in < 100 -> 100
       has_pair?(my_cards ++ community_cards) -> current_buy_in + minimum_raise
       has_rank?(my_cards, "K") -> 20 
       has_rank?(my_cards, "Q") -> 10
