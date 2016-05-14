@@ -1,5 +1,5 @@
 defmodule LeanpokerElixir.Player do
-  @version "0.0.5"
+  @version "0.0.6"
   def bet_request(game_state) do
     %{
       "in_action" => in_action,
@@ -9,13 +9,13 @@ defmodule LeanpokerElixir.Player do
     } = game_state
     player = Enum.at(players, in_action)
     if has_pair?(player["hole_cards"]) do
-      current_buy_in
+      current_buy_in - player["bet"] + 20
     else
       0
     end
   end
   defp has_pair?(cards) do
-    rank = (hd cards)["rank"]
+    %{"rank" => rank} = hd cards
     has_pair? = Enum.all?(cards, fn(x) -> x["rank"] == rank end)
   end
   def showdown(game_state) do
