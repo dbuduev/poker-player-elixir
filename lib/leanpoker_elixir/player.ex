@@ -1,15 +1,16 @@
 defmodule LeanpokerElixir.Player do
-  @version "0.0.6"
+  @version "0.0.7"
   def bet_request(game_state) do
     %{
       "in_action" => in_action,
       "dealer" => dealer,
       "players" => players,
       "current_buy_in" => current_buy_in,
+      "minimum_raise" => minimum_raise
     } = game_state
     player = Enum.at(players, in_action)
     if has_pair?(player["hole_cards"]) do
-      current_buy_in - player["bet"] + 20
+      current_buy_in + minimum_raise
     else
       0
     end
